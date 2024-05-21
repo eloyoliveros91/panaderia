@@ -19,21 +19,31 @@ class PedidoController extends AbstractController
     #[Route('/finalizar', name: 'finalizar_pedido', methods: ['POST'])]
     public function add(Request $request, EntityManagerInterface $entityManager): Response
     {
-        $productos = $entityManager->getRepository(Producto::class)->findAll();
+        $productos = $entityManager->getRepository(Producto::class)->findAvailableProducts();
         $usuario = $this->getUser();
         $pedido = new Pedido();
         $pedido->setUsuario($usuario);
         $pedido->setFecha(new \DateTime());
 
+        $algunProductoSeleccionado = false;
+
         foreach ($productos as $producto) {
             $cantidad = $request->request->get('cantidad_' . $producto->getId(), 0);
             if ($cantidad > 0) {
+                $algunProductoSeleccionado = true;
                 $pedidoProducto = new PedidoProducto();
                 $pedidoProducto->setPedido($pedido);
                 $pedidoProducto->setProducto($producto);
                 $pedidoProducto->setCantidad($cantidad);
                 $entityManager->persist($pedidoProducto);
             }
+        }
+
+        if (!$algunProductoSeleccionado) {
+            return $this->render('home/index.html.twig', [
+                'productos' => $productos,
+                'error' => 'Debe seleccionar al menos un producto.'
+            ]);
         }
 
         $entityManager->persist($pedido);
@@ -74,7 +84,7 @@ class PedidoController extends AbstractController
     #[Route('/actualizar/{id}', name: 'editar_pedido', methods: ['GET'])]
     public function actualizarPedido(Pedido $pedido, EntityManagerInterface $entityManager): Response
     {
-        $productos = $entityManager->getRepository(Producto::class)->findAll();
+        $productos = $entityManager->getRepository(Producto::class)->findAvailableProducts();
 
         $idsPedido = [];
 

@@ -9,7 +9,11 @@
     {% if productos is empty %}
         <p>Lo sentimos, no no tenemos productos disponibles en este momento.</p>
     {% else %}
-
+    {% if error is defined %}
+        <div class="alert alert-danger" role="alert">
+            {{ error }}
+        </div>
+    {% endif %}
     <h4>Realice su pedido del día</h4>
     <form method="post" action="{{ path('finalizar_pedido') }}" class="w-100">
     <div class="row" style="margin-top: 80px">

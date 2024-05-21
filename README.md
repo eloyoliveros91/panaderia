@@ -1,5 +1,31 @@
-INSERT INTO usuarios (username, password, role) VALUES ('admin', '$argon2id$v=19$m=65536,t=4,p=1$JA9hzu0vIO2CNTWmEVLDkQ$qQ6tU+ZVV4081bzBUmpxkcDyojvSVf2My4W6EXF3ql8', 'ROLE_ADMIN');
+# Proyecto Symfony - prueba técnica
 
-INSERT INTO usuarios (username, password, roles) VALUES ('admin@checkin.com', '$2y$13$UB1nruqQbEtAox4DXc.1TOwEbaPai0e7i4mAwCZ4gdWezZzDPtCD6', '["ROLE_ADMIN"]');
-admines
-as
+Este es un proyecto Symfony que utiliza Docker para facilitar el desarrollo y la ejecución del entorno.
+
+## Pasos para levantar el proyecto:
+
+1. **Ejecutar Docker Compose:**
+
+   Para levantar el proyecto, ejecuta el siguiente comando en la raíz del proyecto:
+
+   ```bash
+   docker-compose up -d
+   ```
+
+   Esto iniciará los contenedores necesarios para ejecutar la aplicación Symfony y la base de datos.
+
+### 2. Crear el Schema de la Base de Datos
+
+    Una vez se hayan levantados los contenedores, crea el esquema de la base de datos con el siguiente comando:
+
+    ```bash
+    docker-compose exec php bin/console doctrine:schema:create
+    ```
+
+### 3. Agregar Datos de Muestra
+
+    He creado una AppFixture para agregar datos de muestra a la base de datos. Para ejecutarlo, ejecuta el siguiente comando:
+
+    ```bash
+    docker-compose exec php bin/console doctrine:fixtures:load --no-interaction
+    ```
