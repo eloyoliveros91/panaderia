@@ -2,6 +2,8 @@
 
 Este es un proyecto Symfony que utiliza Docker para facilitar el desarrollo y la ejecución del entorno.
 
+Primeramente deberá clonarse el repo en un directorio local, moverse a ese directorio y ejecutr los siguientes pasos:
+
 ## Pasos para levantar el proyecto:
 
 1. **Ejecutar Docker Compose:**
