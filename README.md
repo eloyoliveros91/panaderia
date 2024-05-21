@@ -29,3 +29,18 @@ Este es un proyecto Symfony que utiliza Docker para facilitar el desarrollo y la
     ```bash
     docker-compose exec php bin/console doctrine:fixtures:load --no-interaction
     ```
+
+Una vez los contenedores estén ejecutándose, el proyecto estará listo para ser usado. A través de la dirección http://localhost:8080 se puede acceder al proyecto.
+
+Las principales funcionalidades, son:
+
+1. Login
+2. Registro
+3. Crear un pedido
+4. Gestionar producto
+
+Se han creado dos roles, uno para administradores y otro para usuarios. Sólo los usuarios pueden gestionar productos. Uno de los users que se inserta como dato de muestra ya es un admin.
+
+Las credenciales son:
+
+admin: admines
