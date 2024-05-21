@@ -14,21 +14,21 @@ Este es un proyecto Symfony que utiliza Docker para facilitar el desarrollo y la
 
    Esto iniciará los contenedores necesarios para ejecutar la aplicación Symfony y la base de datos.
 
-### 2. Crear el Schema de la Base de Datos
+2. **Crear el Schema de la Base de Datos**
 
-    Una vez se hayan levantados los contenedores, crea el esquema de la base de datos con el siguiente comando:
+   Una vez se hayan levantados los contenedores, crea el esquema de la base de datos con el siguiente comando:
 
-    ```bash
-    docker-compose exec php bin/console doctrine:schema:create
-    ```
+   ```bash
+   docker-compose exec php bin/console doctrine:schema:create
+   ```
 
-### 3. Agregar Datos de Muestra
+3. **Agregar Datos de Muestra**
 
-    He creado una AppFixture para agregar datos de muestra a la base de datos. Para ejecutarlo, ejecuta el siguiente comando:
+   He creado una AppFixture para agregar datos de muestra a la base de datos. Para ejecutarlo, ejecuta el siguiente comando:
 
-    ```bash
-    docker-compose exec php bin/console doctrine:fixtures:load --no-interaction
-    ```
+   ```bash
+   docker-compose exec php bin/console doctrine:fixtures:load --no-interaction
+   ```
 
 Una vez los contenedores estén ejecutándose, el proyecto estará listo para ser usado. A través de la dirección http://localhost:8080 se puede acceder al proyecto.
 
