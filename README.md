@@ -43,4 +43,4 @@ Se han creado dos roles, uno para administradores y otro para usuarios. Sólo lo
 
 Las credenciales son:
 
-admin: admines
+admin@checkin.com: admines
