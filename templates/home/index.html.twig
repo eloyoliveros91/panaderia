@@ -5,6 +5,11 @@
 {% block body %}
 <div class="container mt-4">
     <h3>Bienvenido, {{ app.user.username }}.</h3>
+
+    {% if productos is empty %}
+        <p>Lo sentimos, no no tenemos productos disponibles en este momento.</p>
+    {% else %}
+
     <h4>Realice su pedido del día</h4>
     <form method="post" action="{{ path('finalizar_pedido') }}" class="w-100">
     <div class="row" style="margin-top: 80px">
@@ -29,5 +34,6 @@
         </div>
             </form>
     </div>
+    {% endif %}
 </div>
 {% endblock %}

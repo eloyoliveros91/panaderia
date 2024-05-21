@@ -49,7 +49,7 @@ class PedidoController extends AbstractController
     {
         $usuario = $this->getUser();
         $pedidos = $entityManager->getRepository(Pedido::class)->findBy(['usuario' => $usuario]);
-        
+
         foreach ($pedidos as $pedido) {
             $precio = 0;
             foreach ($pedido->getPedidoProductos() as $pedidoProducto) {
@@ -98,16 +98,22 @@ class PedidoController extends AbstractController
     public function actualizarPedidoConfirm(Request $request, Pedido $pedido, EntityManagerInterface $entityManager): Response
     {
         $productos = $entityManager->getRepository(Producto::class)->findAll();
-
+        $existeProducto = false;
         foreach ($pedido->getPedidoProductos() as $pedidoProducto) {
             $cantidad = $request->request->get('cantidadUpdate_' . $pedidoProducto->getId());
-            $pedidoProducto->setCantidad($cantidad);
-            $entityManager->persist($pedidoProducto);
+            if ($cantidad > 0) {
+                $pedidoProducto->setCantidad($cantidad);
+                $entityManager->persist($pedidoProducto);
+                $existeProducto = true;
+            } else {
+                $entityManager->remove($pedidoProducto);
+            }
         }
 
         foreach ($productos as $producto) {
             $cantidad = $request->request->get('cantidad_' . $producto->getId(), 0);
             if ($cantidad > 0) {
+                $existeProducto = true;
                 $pedidoProducto = new PedidoProducto();
                 $pedidoProducto->setPedido($pedido);
                 $pedidoProducto->setProducto($producto);
@@ -116,7 +122,12 @@ class PedidoController extends AbstractController
             }
         }
 
-        $entityManager->persist($pedido);
+        if (!$existeProducto) {
+            $entityManager->remove($pedido);
+        } else {
+            $entityManager->persist($pedido);
+        }
+
         $entityManager->flush();
 
         $this->addFlash('success', 'Pedido actualizado con éxito.');
