@@ -40,7 +40,7 @@ security:
         - { path: ^/register$, roles: IS_AUTHENTICATED_ANONYMOUSLY }
         - { path: ^/producto/*, roles: ROLE_ADMIN }
         - { path: ^/home, roles: ROLE_USER }
-        - { path: ^/pedido$, roles: ROLE_USER }
+        - { path: ^/pedido/*, roles: ROLE_USER }
 
 when@test:
     security:

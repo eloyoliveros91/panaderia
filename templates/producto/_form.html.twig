@@ -1,12 +1,6 @@
 
     
-{{ form_start(form) }}
-    {# <div class="form-group">
-        {{ form_label(form.field_name, null, {'label_attr': {'class': 'form-label'}}) }}
-        {{ form_widget(form.field_name, {'attr': {'class': 'form-control'}}) }}
-        {{ form_errors(form.field_name) }}
-    </div> #}
-    {# Repite para cada campo del formulario #}
+{{ form_start(form) }}    
     <div class="form-group">
         {{ form_label(form.nombre, null, {'label_attr': {'class': 'form-label'}}) }}
         {{ form_widget(form.nombre, {'attr': {'class': 'form-control'}}) }}
