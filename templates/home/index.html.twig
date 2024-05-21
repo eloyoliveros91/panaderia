@@ -1,0 +1,33 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Inicio{% endblock %}
+
+{% block body %}
+<div class="container mt-4">
+    <h3>Bienvenido, {{ app.user.username }}.</h3>
+    <h4>Realice su pedido del día</h4>
+    <form method="post" action="{{ path('finalizar_pedido') }}" class="w-100">
+    <div class="row" style="margin-top: 80px">
+        {% for producto in productos %}
+            <div class="col-md-3 mb-4">
+                <div class="card h-100">
+                    <div class="card-body">
+                        <h5 class="card-title">{{ producto.nombre }}</h5>
+                        <p class="card-text">{{ producto.descripcion|length > 100 ? producto.descripcion|slice(0, 100) ~ '...' : producto.descripcion }}</p>
+                        <p class="card-text"><strong>Precio: </strong>€{{ producto.precio }}</p>
+                            <div class="form-group">
+                                <label for="cantidad_{{ producto.id }}">Cantidad:</label>
+                                <input type="number" id="cantidad_{{ producto.id }}" name="cantidad_{{ producto.id }}" class="form-control" value="0" min="0">
+                            </div>                            
+                    </div>
+                </div>
+            </div>
+        {% endfor %}
+        </div>
+        <div class="d-flex justify-content-center">
+            <button type="submit" class="btn btn-primary mt-4">Finalizar Pedido</button>
+        </div>
+            </form>
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,45 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Actualizar pedido {{pedido.id}}{% endblock %}
+
+{% block body %}
+<div class="container mt-4">
+    
+    <form method="post" action="{{ path('actualizar_pedido', { 'id': pedido.id }) }}" class="w-100">
+    <div class="row">
+        {% for detalle in pedido.pedidoProductos %}
+            <div class="col-md-3 mb-4">
+                <div class="card h-100">
+                    <div class="card-body">
+                        <h5 class="card-title">{{ detalle.producto.nombre }}</h5>
+                        <p class="card-text">{{ detalle.producto.descripcion|length > 100 ? detalle.producto.descripcion|slice(0, 100) ~ '...' : detalle.producto.descripcion }}</p>
+                        <p class="card-text"><strong>Precio: </strong>€{{ detalle.producto.precio }}</p>
+                            <div class="form-group">
+                                <label for="cantidadUpdate_{{ detalle.id }}">Cantidad:</label>
+                                <input type="number" id="cantidadUpdate_{{ detalle.id }}" name="cantidadUpdate_{{ detalle.id }}" class="form-control" value={{detalle.cantidad}} min="0">
+                            </div>                            
+                    </div>
+                </div>
+            </div>
+        {% endfor %}
+        {% for producto in productos %}
+            <div class="col-md-3 mb-4">
+                <div class="card h-100">
+                    <div class="card-body">
+                        <h5 class="card-title">{{ producto.nombre }}</h5>
+                        <p class="card-text">{{ producto.descripcion|length > 100 ? producto.descripcion|slice(0, 100) ~ '...' : producto.descripcion }}</p>
+                        <p class="card-text"><strong>Precio: </strong>€{{ producto.precio }}</p>
+                            <div class="form-group">
+                                <label for="cantidad_{{ producto.id }}">Cantidad:</label>
+                                <input type="number" id="cantidad_{{ producto.id }}" name="cantidad_{{ producto.id }}" class="form-control" value="0" min="0">
+                            </div>                            
+                    </div>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+            <button type="submit" class="btn btn-primary mt-4">Actualizar Pedido</button>
+            </form>
+    </div>
+</div>
+{% endblock %}

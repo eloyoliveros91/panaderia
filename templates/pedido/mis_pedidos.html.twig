@@ -1,0 +1,67 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Mis Pedidos{% endblock %}
+
+{% block body %}
+<div class="container mt-4">
+    <h1 class="text-center" >Mis Pedidos</h1>
+    {% if pedidos is empty %}
+        <p>No tienes pedidos realizados.</p>
+    {% else %}
+    
+        <div class="row justify-content-center">
+            {% for pedido in pedidos %}
+                <div class="col-md-8 mb-4">
+                    <div class="card">
+                        <div class="card-header">
+                            Pedido #{{ pedido.id }}: €{{ pedido.precioFinal }}
+                            <a href="{{ path('editar_pedido', { 'id': pedido.id }) }}" style="float:right; margin-left: 10px;" class="btn btn-success btn-sm">Editar</a>
+                            <button type="button" class="btn btn-danger btn-sm" style="float:right;" onclick="eliminarPedido({{ pedido.id }})">Eliminar</button>
+                        </div>
+                        <div class="card-body">
+                            <p><strong>Fecha:</strong> {{ pedido.fecha|date('d/m/Y H:i') }}</p>
+                            <ul class="list-group">
+                                {% for detalle in pedido.pedidoProductos %}
+                                    <li class="list-group-item">
+                                        {{ detalle.cantidad }}x {{ detalle.producto.nombre }} - €{{ detalle.producto.precio }}
+                                    </li>
+                                {% endfor %}
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    {% endif %}
+</div>
+{% endblock %}
+
+{% block javascripts %}
+<script>
+    function eliminarPedido(pedidoId) {
+        if (confirm('¿Estás seguro de que deseas eliminar este pedido?')) {
+            console.log('Eliminar pedido', pedidoId);
+            const url = '/pedido/eliminar/' + pedidoId; 
+            fetch(url, {
+                method: 'DELETE',
+                headers: {
+                    'X-Requested-With': 'XMLHttpRequest',
+                    'Content-Type': 'application/json',
+                }
+            })
+            .then(response => {
+                if (response.ok) {
+                    alert('Pedido eliminado con éxito.');
+                    window.location.reload(); 
+                } else {
+                    throw new Error('Error al eliminar el pedido.');
+                }
+            })
+            .catch(error => {
+                console.error(error);
+                alert('Error al eliminar el pedido.');
+            });
+        }
+    }
+</script>
+{% endblock %}

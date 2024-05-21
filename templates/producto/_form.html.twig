@@ -1,0 +1,35 @@
+
+    
+{{ form_start(form) }}
+    {# <div class="form-group">
+        {{ form_label(form.field_name, null, {'label_attr': {'class': 'form-label'}}) }}
+        {{ form_widget(form.field_name, {'attr': {'class': 'form-control'}}) }}
+        {{ form_errors(form.field_name) }}
+    </div> #}
+    {# Repite para cada campo del formulario #}
+    <div class="form-group">
+        {{ form_label(form.nombre, null, {'label_attr': {'class': 'form-label'}}) }}
+        {{ form_widget(form.nombre, {'attr': {'class': 'form-control'}}) }}
+        {{ form_errors(form.nombre) }}
+    </div>
+    <div class="form-group">
+        {{ form_label(form.descripcion, null, {'label_attr': {'class': 'form-label'}}) }}
+        {{ form_widget(form.descripcion, {'attr': {'class': 'form-control'}}) }}
+        {{ form_errors(form.descripcion) }}
+    </div>
+    <div class="form-group">
+        {{ form_label(form.precio, null, {'label_attr': {'class': 'form-label'}}) }}
+        {{ form_widget(form.precio, {'attr': {'class': 'form-control'}}) }}
+        {{ form_errors(form.precio) }}
+    </div>
+    <div class="form-group">
+        {{ form_label(form.disponible, null, {'label_attr': {'class': 'form-check-label'}}) }}
+        {{ form_widget(form.disponible, {'attr': {'class': 'form-check-input'}}) }}
+        {{ form_errors(form.disponible) }}
+    </div>
+
+    <div class="row" style="margin-top: 80px;">
+        <div class="col-1">
+    <button class="btn btn-primary btn-sm">{{ button_label|default('Guardar') }}</button>
+    </div>
+{{ form_end(form) }}
