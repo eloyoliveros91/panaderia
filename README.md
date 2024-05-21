@@ -14,9 +14,16 @@ Primeramente deberá clonarse el repo en un directorio local, moverse a ese dire
    docker-compose up -d
    ```
 
-   Esto iniciará los contenedores necesarios para ejecutar la aplicación Symfony y la base de datos.
+   Esto iniciará los contenedores necesarios para ejecutar la aplicación Symfony y la base de datos. Una vez estando seguro de que están ejecutandose
 
-2. **Crear el Schema de la Base de Datos**
+2. **Instalar dependencias de composer**
+   Ejecutar la instrucción
+   
+   ```bash
+   docker-compose exec php composer install
+   ```   
+
+3. **Crear el Schema de la Base de Datos**
 
    Una vez se hayan levantados los contenedores, crea el esquema de la base de datos con el siguiente comando:
 
@@ -24,7 +31,7 @@ Primeramente deberá clonarse el repo en un directorio local, moverse a ese dire
    docker-compose exec php bin/console doctrine:schema:create
    ```
 
-3. **Agregar Datos de Muestra**
+4. **Agregar Datos de Muestra**
 
    He creado una AppFixture para agregar datos de muestra a la base de datos. Para ejecutarlo, ejecuta el siguiente comando:
 
